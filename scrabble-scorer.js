@@ -1,5 +1,5 @@
 // This assignment is inspired by a problem on Exercism (https://exercism.org/tracks/javascript/exercises/etl) that demonstrates Extract-Transform-Load using Scrabble's scoring system. 
-
+// Testing if git repository is working
 const input = require("readline-sync");
 
 const oldPointStructure = {
