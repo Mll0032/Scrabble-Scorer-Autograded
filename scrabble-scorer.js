@@ -2,6 +2,26 @@
 
 const input = require("readline-sync");
 
+let oSimpleScorer = {
+  name: "Simple Score",
+  discription: "Each letter is worth 1 point.",
+  scorerFunction: simpleScorer
+};
+
+let oVowelBonusScorer= {
+  name: "Bonus Vowels",
+  discription: "Vowels are 3 pts, consonants are 1 pt.",
+  scorerFunction: vowelBonusScorer
+};
+
+let scrabbleScorer= {
+  name: "Scrabble",
+  discription: "The traditional scoring algorithm.",
+  scorerFunction: oldScrabbleScorer
+};
+
+const scoringAlgorithms = [oSimpleScorer, oVowelBonusScorer, scrabbleScorer];
+
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
   2: ['D', 'G'],
@@ -62,24 +82,26 @@ function vowelBonusScorer(word) {
 
 let newPointStructure;
 
-//let simpleScorer;
-
-//let vowelBonusScorer;
-
-let scrabbleScorer;
-
-const scoringAlgorithms = [];
-
-function scorerPrompt() {}
+function scorerPrompt() {
+  console.log("Which scoring algorithm would you like to use?");
+  console.log("0 - Simple Score: Each letter is worth 1 point.");
+  console.log("1 - Bonus Vowels: Vowels are 3 pts, consonants are 1 pt.");
+  console.log("2 - Scrabble: The traditional scoring algorithm.");
+  let algorithmIndex = input.question("Enter 0, 1, or 2: ");
+  return scoringAlgorithms[algorithmIndex];
+}
 
 function transform() {};
 
 function runProgram() {
    let word = initialPrompt();
-   let score = vowelBonusScorer(word);
-   //let score = simpleScorer(word);
-   //let score = oldScrabbleScorer(word);
+   let selectedScorer = scorerPrompt();
+   let score = selectedScorer.scorerFunction(word);
    console.log(score);
+   //Test scorer functions to see if they work
+   //let score = scorerVowelBonus(word);
+   //let score = scorerSimple(word);
+   //let score = oldScrabbleScorer(word);
 }
 
 // Don't write any code below this line //
