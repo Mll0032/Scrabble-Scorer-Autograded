@@ -118,17 +118,6 @@ function runProgram() {
    let selectedScorer = scorerPrompt();
    let score = selectedScorer.scorerFunction(word);
    console.log(`Score for ${word}: ${score}`);
-   //Test to see if newPointStructure is populating correctly
-   //console.log(newPointStructure);
-   //Test scorer functions to see if they work
-   //let score = scorerVowelBonus(word);
-   //let score = scorerSimple(word);
-   //let score = oldScrabbleScorer(word);
-   //test newPointStructure object
-   //console.log("Scrabble scoring values for");
-   //console.log("letter a: ", newPointStructure.a);
-   //console.log("letter j: ", newPointStructure.j);
-   //console.log("letter z: ", newPointStructure["z"]);
 }
 
 // Don't write any code below this line //
