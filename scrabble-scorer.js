@@ -14,13 +14,13 @@ let oVowelBonusScorer= {
   scorerFunction: vowelBonusScorer
 };
 
-let scrabbleScorer= {
+let oScrabbleScorer= {
   name: "Scrabble",
   discription: "The traditional scoring algorithm.",
-  scorerFunction: oldScrabbleScorer
+  scorerFunction: scrabbleScorer
 };
 
-const scoringAlgorithms = [oSimpleScorer, oVowelBonusScorer, scrabbleScorer];
+const scoringAlgorithms = [oSimpleScorer, oVowelBonusScorer, oScrabbleScorer];
 
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
@@ -32,34 +32,19 @@ const oldPointStructure = {
   10: ['Q', 'Z']
 };
 
-let newPointStructure = {
-  a:1,
-  b:3,
-  c:3,
-  d:2,
-  e:1,
-  f:4,
-  g:2,
-  h:4,
-  i:1,
-  j:8,
-  k:5,
-  l:1,
-  m:3,
-  n:1,
-  o:1,
-  p:3,
-  q:10,
-  r:1,
-  s:1,
-  t:1,
-  u:1,
-  v:4,
-  w:4,
-  x:8,
-  y:4,
-  z:10
+const newPointStructure = transform(oldPointStructure);
+
+function transform(oldPointStructure) {
+  let newPointStructure = {};
+  for (valuesKey in oldPointStructure) {
+    const letters = oldPointStructure[valuesKey];
+    for (let i = 0; i < letters.length; i++) {
+      newPointStructure[letters[i].toLowerCase()] = parseInt(valuesKey);
+    }
+  }
+  return newPointStructure;
 };
+
 function oldScrabbleScorer(word) {
 	word = word.toUpperCase();
 	let letterPoints = "";
@@ -77,6 +62,17 @@ function oldScrabbleScorer(word) {
 	return letterPoints;
  }
 
+ function scrabbleScorer(word) {
+  word = word.toLowerCase();
+  let score = 0;
+
+  for (let i = 0; i < word.length; i++) {
+    score += newPointStructure[word[i]];
+  }
+
+  return score;
+}
+
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
 
@@ -91,7 +87,7 @@ function simpleScorer(word) {
     simpleScore += 1;
   }
   
-  return `Score for ${word}: ${simpleScore}`;
+  return simpleScore;
 }
 
 function vowelBonusScorer(word) {
@@ -105,10 +101,8 @@ function vowelBonusScorer(word) {
       vBonusScore += 1;
     }
   }
-  return `Score for ${word}': ${vBonusScore}`;
+  return vBonusScore;
 }
-
-
 
 function scorerPrompt() {
   console.log("Which scoring algorithm would you like to use?");
@@ -119,13 +113,13 @@ function scorerPrompt() {
   return scoringAlgorithms[algorithmIndex];
 }
 
-function transform() {};
-
 function runProgram() {
    let word = initialPrompt();
    let selectedScorer = scorerPrompt();
    let score = selectedScorer.scorerFunction(word);
-   console.log(score);
+   console.log(`Score for ${word}: ${score}`);
+   //Test to see if newPointStructure is populating correctly
+   //console.log(newPointStructure);
    //Test scorer functions to see if they work
    //let score = scorerVowelBonus(word);
    //let score = scorerSimple(word);
