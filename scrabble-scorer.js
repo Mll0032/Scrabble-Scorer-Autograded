@@ -2,25 +2,24 @@
 
 const input = require("readline-sync");
 
-let oSimpleScorer = {
-  name: "Simple Score",
-  discription: "Each letter is worth 1 point.",
-  scorerFunction: simpleScorer
-};
 
-let oVowelBonusScorer= {
-  name: "Bonus Vowels",
-  discription: "Vowels are 3 pts, consonants are 1 pt.",
-  scorerFunction: vowelBonusScorer
-};
-
-let oScrabbleScorer= {
-  name: "Scrabble",
-  discription: "The traditional scoring algorithm.",
-  scorerFunction: scrabbleScorer
-};
-
-const scoringAlgorithms = [oSimpleScorer, oVowelBonusScorer, oScrabbleScorer];
+const scoringAlgorithms = [
+  {
+    name: "Simple Score",
+    discription: "Each letter is worth 1 point.",
+    scorerFunction: simpleScorer
+  },
+  {
+    name: "Bonus Vowels",
+    discription: "Vowels are 3 pts, consonants are 1 pt.",
+    scorerFunction: vowelBonusScorer
+  },
+  {
+    name: "Scrabble",
+    discription: "The traditional scoring algorithm.",
+    scorerFunction: scrabbleScorer
+  }
+];
 
 const oldPointStructure = {
   1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
@@ -37,7 +36,7 @@ const newPointStructure = transform(oldPointStructure);
 function transform(oldPointStructure) {
   let newPointStructure = {};
   for (valuesKey in oldPointStructure) {
-    const letters = oldPointStructure[valuesKey];
+    let letters = oldPointStructure[valuesKey];
     for (let i = 0; i < letters.length; i++) {
       newPointStructure[letters[i].toLowerCase()] = parseInt(valuesKey);
     }
